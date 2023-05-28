@@ -12,3 +12,8 @@ create table order_items(order_id int, item_id int, constraint order_id_fk forei
 create table cart(user_id int, item_id int, constraint item_id_fk foreign key(item_id) references item(item_id), constraint user_id_fk foreign key(user_id) references user(user_id));
 
 
+select user_id from users where email='test@mail.com'
+
+select * from orders o join users u on o.user_id=u.user_id 
+
+select u.surname, u.name, i.name, i.price from cart c join users u on c.user_id=u.user_id join item i on c.item_id=i.item_id 
