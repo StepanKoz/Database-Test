@@ -17,3 +17,29 @@ select user_id from users where email='test@mail.com'
 select * from orders o join users u on o.user_id=u.user_id 
 
 select u.surname, u.name, i.name, i.price from cart c join users u on c.user_id=u.user_id join item i on c.item_id=i.item_id 
+
+
+select *
+from orders o
+         join users u on o.user_id = u.user_id
+         join (select i.name, i.price, i.item_id, o.order_id, o.status, o.user_id
+               from order_items
+                        join item i on i.item_id = order_items.item_id
+                        join orders o on o.order_id = order_items.order_id) oi on oi.user_id = u.user_id;
+
+select u.surname, u.name, i.name, i.price
+from cart c
+         join users u on c.user_id = u.user_id
+         join item i on c.item_id = i.item_id
+where c.user_id = 1;
+
+select u.user_id, sum(i.price), count(c.item_id)
+from cart c
+         join users u on u.user_id = c.user_id
+         join item i on c.item_id = i.item_id
+group by u.user_id;
+
+select i.name, i.price, i.item_id, o.order_id, o.status, o.user_id
+from order_items
+         join item i on i.item_id = order_items.item_id
+         join orders o on o.order_id = order_items.order_id
